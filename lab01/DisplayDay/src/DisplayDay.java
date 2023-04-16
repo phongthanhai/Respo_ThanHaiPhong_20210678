@@ -110,42 +110,55 @@ public class DisplayDay {
 		}
 	}
 	
+	public static void menu() {
+		Scanner sc = new Scanner(System.in);
+		boolean isRunning =  true ;
+		
+		while(isRunning) {
+			System.out.println("Enter month and year(separate by a space))");
+			String rawInput = sc.nextLine();
+			String[] monthAndYear= rawInput.split(" ");
+			
+			String month=monthAndYear[0];
+			String year = monthAndYear[1];
+			
+			int yearNum = Integer.parseInt(year);
+			if(yearNum<0) {
+				System.out.println("Invalid year. Please Enter Again");
+				continue;
+			}
+			
+			if(checkJan(month)||checkMar(month)||checkMay(month)||checkJuly(month)||
+					checkAug(month)||checkOct(month)||checkDec(month)) {
+				
+				System.out.println("31 days");
+				isRunning=false;
+			}else if(checkFeb(month)) {
+				if(checkLeap(yearNum)) {
+					System.out.println("29 days");
+					isRunning=false;
+				}else {
+					System.out.println("28 days");
+					isRunning=false;
+				}
+			}else if(checkApr(month)||checkJune(month)||checkSep(month)||checkNov(month)) {
+				System.out.println("30 days");
+				isRunning=false;
+			}else {
+				System.out.println("Wrong month entered! Please enter again!");
+				continue;
+			}
+			
+		}
+		
+		
+			
+	}
+	
 	
 
 	public static void main(String[] args) {
-		
-		Scanner sc = new Scanner(System.in);
-		
-		System.out.println("Enter month and year(separate by a space))");
-		String rawInput = sc.nextLine();
-		String[] monthAndYear= rawInput.split(" ");
-		
-		String month=monthAndYear[0];
-		String year = monthAndYear[1];
-		
-		int yearNum = Integer.parseInt(year);
-		if(yearNum<0) {
-			return;
-		}
-		
-		if(checkJan(month)||checkMar(month)||checkMay(month)||checkJuly(month)||
-				checkAug(month)||checkOct(month)||checkDec(month)) {
-			
-			System.out.println("31 days");
-			
-		}else if(checkFeb(month)) {
-			if(checkLeap(yearNum)) {
-				System.out.println("29 days");
-			}else {
-				System.out.println("28 days");
-			}
-		}else if(checkApr(month)||checkJune(month)||checkSep(month)||checkNov(month)) {
-			System.out.println("30 days");
-		}else {
-			System.out.println("Wrong month entered!");
-		}
-		
-		
+		DisplayDay.menu();
 		
 	}
 
