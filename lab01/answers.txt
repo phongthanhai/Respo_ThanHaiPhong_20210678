@@ -1,0 +1,11 @@
+6.1: ChoosingOption Exercise
+- If the user press the cancel button, the screen will display:" You've chosen: No", Since the following code:
+ JOptionPane.showMessageDialog(null, "You've chosen: "+ (option==JOptionPane.YES_OPTION?"Yes":"No"));
+means that if the user choose the YES_OPTION, which represented by the Yes Button, the result will be" You've Choosen: Yes", otherwise, in case of choosing No and Cancel Button, the result will be " You've chosen: No".
+
+- How to customize the options to users, e.g. only two options: “Yes” and “No”, OR “I do” and “I don’t” :
+Replace the strings in the following code:
+
+JOptionPane.showMessageDialog(null, "You've chosen: "+ (option==JOptionPane.YES_OPTION?"Yes":"No"));
+
+"Yes":"No" may be replaced as "I do" and "I don't" to get the new results.
