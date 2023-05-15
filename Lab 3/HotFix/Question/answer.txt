@@ -1,0 +1,17 @@
+OOP LAB 3 ANSWER
+
+- After the call of swap(jungleDVD, cinderellaDVD) why does the title of these two objects still remain? 
++ Java does not support pass-by-reference, and only support pass-by-value. Since the way we did the swap method above passes the arguments as the reference, not values to the actual object, it is expected to not work properly.
+
+-After the call of changeTitle(jungleDVD, cinderellaDVD.getTitle()) why is the title of the JungleDVD changed? 
+In the following code:
+
+public static void changeTitle(DigitalVideoDisc dvd,String title) {
+		String oldTitle =  dvd.getTitle();
+		dvd.setTitle(title);
+		dvd = new DigitalVideoDisc(oldTitle);
+	}
+We actually passed a String to the parameter, and the reference to DigitalVideoDisc object. However, the difference is, String is an immutable object in java, so it means once we assigned a value, it cannot be changed. If we change a string value, then the compiler creates a new string object in the memory and point a variable to the new memory location.  The title of the object associated with dvd is also a string, which can be accessed through the getTitle() method. So we might expect the results in the question.
+
+
+ 
