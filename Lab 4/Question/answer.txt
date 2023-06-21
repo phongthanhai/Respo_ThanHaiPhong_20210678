@@ -1,0 +1,58 @@
+OOP LAB 4 ANSWER
+
+- Question: When overriding the equals() method of the Object class, you will have to cast the Object parameter obj to the type of Object that you are dealing with. For example, in the Media class, you must cast the Object obj to a Media, and then check the equality of the two objects’ attributes as the above requirements (i.e. title for Media; title and length for Track). If the passing object is not an instance of Media, what happens? 
+
+Answer: If the passed object is not an instance of Media, then the cast to Media will fail and a ClassCastException will be thrown at runtime. So typecasting to Media object is necessary to avoid any Exception.
+
+- Question: Alternatively, to compare items in the cart, instead of using Comparator, we can use the Comparable interface and override the compareTo()method. You can refer to the Java docs to see the information of this interface.  
+
+Suppose we are taking this Comparable interface approach. 
+
++What class should implement the Comparable interface? 
+
++In those classes, how should you implement the compareTo()method be to reflect the ordering that we want? 
+
++Can we have two ordering rules of the item (by title then cost and by cost then title) if we use this Comparable interface approach? 
+
++Suppose the DVDs has a different ordering rule from the other media types, that is by title, then decreasing length, then cost. How would you modify your code to allow this? 
+
+Answer:
++ The media class should implement the Comparable interface.
++ Implement compareTo():
+	public class Media implements Comparable<Media>{
+
+			@Override
+			public int compareTo(Media other) {
+        			if (this.cost < other.cost) {
+            				return -1;
+        			} else if (this.cost > other.cost) {
+            				return 1;
+        			} else {
+            				return 0;
+        			}
+    			}
+
+    	}
++ The Comparable interface allows only one natural ordering of an object. Therefore, if we want to implement the Comparable interface for a class, we can define only one way to sort its objects in a natural order. If we need to sort the objects in other orders, we cannot use the Comparable interface.
+
++ We can implement the compareTo() method of the DVD class to use the ordering rule of “by title, then decreasing length, then cost”.
+
+@Override
+    public int compareTo(Media other) {
+        if (!(other instanceof DVD)) {
+            return super.compareTo(other);
+        }
+        DigitalVideoDisc dvd = (DigitalVideoDisc) other;
+        int result = this.getTitle().compareTo(dvd.getTitle());
+        if (result != 0) {
+            return result; 
+        } else {
+            result = Integer.compare(dvd.getLength(), this.getLength());
+            if (result != 0) {
+                return result;
+            } else {
+                return Double.compare(this.getCost(), dvd.getCost()); 
+            }
+        }
+    }
+ 
